@@ -1,0 +1,58 @@
+import java.util.Arrays;
+import java.util.Scanner;
+public class Main{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Input array elements
+        System.out.print("Enter the array elements (separated by spaces): ");
+        String input = scanner.nextLine().trim();
+        // Remove brackets if they exist and split the input string
+        input = input.replace("[", "").replace("]", "");
+        String[] inputElements = input.split("\\s+");
+        int[] array = new int[inputElements.length];
+        // Parse the input elements to integers
+        try {
+            for (int i = 0; i < inputElements.length; i++) {
+                array[i] = Integer.parseInt(inputElements[i]);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input: Please enter valid integers.");
+            return;
+        }
+        // Input values for M and N
+        System.out.print("Enter the value of M (for Mth maximum): ");
+        int M = scanner.nextInt();
+        System.out.print("Enter the value of N (for Nth minimum): ");
+        int N = scanner.nextInt();
+        scanner.close();
+        // Handle invalid inputs for M and N
+        if (M <= 0 || M > array.length) {
+            System.out.println("Invalid value for M. Must be between 1 and " + array.length);
+            return;
+        }
+        if (N <= 0 || N > array.length) {
+            System.out.println("Invalid value for N. Must be between 1 and " + array.length);
+            return;
+        }
+        // Sort the array
+        Arrays.sort(array);
+        // Find the Mth maximum and Nth minimum numbers
+        int MthMax = array[array.length - M]; // Mth maximum
+        int NthMin = array[N - 1];            // Nth minimum
+        // Calculate sum and difference
+        int sum = MthMax + NthMin;
+        int difference = MthMax - NthMin;
+        // Output the results
+        System.out.println("Mth maximum number: " + MthMax);
+        System.out.println("Nth minimum number: " + NthMin);
+        System.out.println("Sum: " + sum);
+        System.out.println("Difference: " + difference);
+    }
+}
+Sample Input:Enter the array elements (separated by spaces): 3 1 4 9 2 7 6
+Enter the value of M (for Mth maximum): 2
+Enter the value of N (for Nth minimum): 3
+Output:Mth maximum number: 7
+Nth minimum number: 3
+Sum: 10
+Difference: 4
