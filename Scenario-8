@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Input dimensions for the first matrix
+        System.out.print("Enter the number of rows in the first matrix: ");
+        int rowsA = scanner.nextInt();
+        System.out.print("Enter the number of columns in the first matrix: ");
+        int colsA = scanner.nextInt();
+        // Input dimensions for the second matrix
+        System.out.print("Enter the number of rows in the second matrix: ");
+        int rowsB = scanner.nextInt();
+        System.out.print("Enter the number of columns in the second matrix: ");
+        int colsB = scanner.nextInt();
+        // Check if the matrices can be multiplied
+        if (colsA != rowsB) {
+            System.out.println("The matrices cannot be multiplied.");
+            return;
+        }
+        // Input the elements of the first matrix
+        int[][] matrixA = new int[rowsA][colsA];
+        System.out.println("Enter the elements of the first matrix:");
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsA; j++) {
+                matrixA[i][j] = scanner.nextInt(); // Correct assignment to matrixA[i][j]
+            }
+        }
+        // Input the elements of the second matrix
+        int[][] matrixB = new int[rowsB][colsB];
+        System.out.println("Enter the elements of the second matrix:");
+        for (int i = 0; i < rowsB; i++) {
+            for (int j = 0; j < colsB; j++) {
+                matrixB[i][j] = scanner.nextInt(); // Correct assignment to matrixB[i][j]
+            }
+        }
+        // Close the scanner
+        scanner.close();
+        // Resultant matrix dimensions
+        int[][] productMatrix = new int[rowsA][colsB];
+        // Multiply the matrices
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                for (int k = 0; k < colsA; k++) {
+                    productMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+                }
+            }
+        }
+        // Output the product matrix
+        System.out.println("The product matrix is:");
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                System.out.print(productMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+Input: A = [[1, 2], [3, 4]], 
+       B = [[2, 0], [1, 2]]
+Output: [[4, 4], [10, 8]]
