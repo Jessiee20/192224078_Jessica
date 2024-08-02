@@ -1,0 +1,50 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Integer> numbers = new ArrayList<>();
+        System.out.print("Enter numbers (separated by spaces): ");
+        String input = scanner.nextLine();
+        scanner.close();
+        // Split the input string and try to parse integers
+        String[] tokens = input.split("\\s+");
+        for (String token : tokens) {
+            try {
+                int number = Integer.parseInt(token);
+                numbers.add(number);
+            } catch (NumberFormatException e) {
+                System.out.println("Ignoring non-integer input: " + token);
+            }
+        }
+        // Count prime and composite numbers
+        int primeCount = 0;
+        int compositeCount = 0;
+        for (int number : numbers) {
+            if (number > 1) {
+                if (isPrime(number)) {
+                    primeCount++;
+                } else {
+                    compositeCount++;
+                }
+            } // Negative numbers, zero, and one are ignored
+        }
+        System.out.println("Number of prime numbers: " + primeCount);
+        System.out.println("Number of composite numbers: " + compositeCount);
+    }
+    // Method to check if a number is prime
+    private static boolean isPrime(int num) {
+        if (num <= 1) return false;
+        if (num <= 3) return true;
+        if (num % 2 == 0 || num % 3 == 0) return false;
+        for (int i = 5; i * i <= num; i += 6) {
+            if (num % i == 0 || num % (i + 2) == 0) return false;
+        }
+        return true;
+    }
+}
+Sample Input:Enter numbers (separated by spaces): 11 13 17 19
+Output:Number of prime numbers: 4
+Number of composite numbers: 0
+
