@@ -1,0 +1,75 @@
+// Base Account class
+class Account {
+    protected String accountNumber;
+    protected double balance;
+
+    public Account(String accountNumber, double balance) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited $" + amount + ". New balance: $" + balance);
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrew $" + amount + ". New balance: $" + balance);
+        } else {
+            System.out.println("Insufficient balance.");
+        }
+    }
+
+    public void viewBalance() {
+        System.out.println("Account balance: $" + balance);
+    }
+}
+
+// SavingsAccount class
+class SavingsAccount extends Account {
+    private static final double INTEREST_RATE = 0.04;
+
+    public SavingsAccount(String accountNumber, double balance) {
+        super(accountNumber, balance);
+    }
+
+    public void applyInterest() {
+        double interest = balance * INTEREST_RATE;
+        balance += interest;
+        System.out.println("Applied interest: $" + interest + ". New balance: $" + balance);
+    }
+}
+
+// CheckingAccount class
+class CheckingAccount extends Account {
+    private static final double MINIMUM_BALANCE = 500;
+    private static final double FEE = 50;
+
+    public CheckingAccount(String accountNumber, double balance) {
+        super(accountNumber, balance);
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        super.withdraw(amount);
+        if (balance < MINIMUM_BALANCE) {
+            balance -= FEE;
+            System.out.println("Balance below minimum. Charged fee of $" + FEE + ". New balance: $" + balance);
+        }
+    }
+}
+
+// Main class for testing
+public class Main {
+    public static void main(String[] args) {
+        // Test Case: Deposit $500 into a savings account with a balance of $1000
+        SavingsAccount savings = new SavingsAccount("SA123", 1000);
+        savings.deposit(500);
+        savings.viewBalance();
+    }
+}
+Sample Input:Deposited $500.0.
+Output:New balance: $1500.0
+Account balance: $1500.0
